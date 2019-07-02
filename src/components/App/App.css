@@ -3,6 +3,11 @@ body {
     margin: 0px;
 }
 
+.App {
+    margin: 50px;
+    text-align: center;
+}
+
 .alert {
     background-color: #ff4545;
     margin: 50px;
