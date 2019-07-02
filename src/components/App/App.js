@@ -18,6 +18,7 @@ import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import HomePage from '../HomePage/HomePage';
 import NewReviewPage from '../NewReviewPage/NewReviewPage';
+import ReviewDetailsPage from '../ReviewDetailsPage/ReviewDetailsPage';
 
 import './App.css';
 
@@ -67,6 +68,11 @@ class App extends Component {
               exact
               path="/new-review"
               component={NewReviewPage}
+            />
+            <ProtectedRoute
+              exact
+              path="/review-details"
+              component={ReviewDetailsPage}
             />
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />

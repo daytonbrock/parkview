@@ -60,7 +60,7 @@ class NewReviewPage extends Component {
                         </Button>
                     </Grid>
                     <Grid item xs={6}>
-                        <Button>
+                        <Button onClick={() => this.props.history.push('/review-details')}>
                             Add Review
                         </Button>
                     </Grid>
