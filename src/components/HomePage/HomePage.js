@@ -82,7 +82,7 @@ class HomePage extends Component {
                 <br/>
                 <Grid container>
                     <Grid item xs={6}>
-                        <Button>
+                        <Button onClick={() => this.props.history.push('/new-review')}>
                             Add A New Review
                         </Button>
                     </Grid>
