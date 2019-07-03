@@ -12,17 +12,8 @@ function* fetchParksData() {
     }
 }
 
-function* postParkReviewToServer(action) {
-    try {
-        yield axios.post('/api/review', action.payload);
-    } catch (error) {
-        console.log('Error with posting park review:', error);
-    }
-}
-
 function* parkSaga() {
     yield takeLatest('FETCH_PARKS_DATA', fetchParksData);
-    yield takeLatest('POST_PARK_REVIEW', postParkReviewToServer);
 }
 
 export default parkSaga;
