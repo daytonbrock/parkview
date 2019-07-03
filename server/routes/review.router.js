@@ -30,6 +30,19 @@ router.get('/', (req, res) => {
         console.log('error with GET request to retrieve all reviews:', error);
         res.sendStatus(500);
     }); // end pool query
-})
+});
+
+// GET details for one review
+router.get('/details/:id', (req, res) => {
+    const queryText = 'SELECT * FROM "park_reviews" WHERE "id"=$1;';
+    pool.query(queryText, [req.params.id])
+        .then(response => {
+            console.log(response);
+            res.send(response.rows);
+        }).catch(error => {
+            console.log('error with retrieving details for one review:', error);
+            res.sendStatus(500);
+        }); // end pool query
+}); 
 
 module.exports = router;
