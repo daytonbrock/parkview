@@ -82,7 +82,7 @@ class NewReviewPage extends Component {
                         </Button>
                     </Grid>
                     <Grid item xs={6}>
-                        <Button onClick={this.addReview()}>
+                        <Button onClick={this.addReview}>
                             Add Review
                         </Button>
                     </Grid>
