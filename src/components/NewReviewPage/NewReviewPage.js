@@ -22,6 +22,10 @@ class NewReviewPage extends Component {
         })
     }
 
+    capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+    }
+
     componentDidMount() {
         this.props.dispatch({ type: 'FETCH_PARKS_DATA' })
     }
@@ -42,13 +46,16 @@ class NewReviewPage extends Component {
                     <Grid item xs={6}>
                         <Select value={this.state.selectedPark}
                             onChange={this.handleChangeFor('selectedPark')}>
-                            <MenuItem value="Mueller Park">Mueller Park</MenuItem>
-                            <MenuItem value="Powderhorn Park">Powderhorn Park</MenuItem>
-                            <MenuItem value="Elliot Park">Elliot Park</MenuItem>
-                            <MenuItem value="Theodore Wirth Park">Theodore Wirth Park</MenuItem>
-                            <MenuItem value="Bryn Mawr Meadows">Bryn Mawr Meadows</MenuItem>
-                            <MenuItem value="Clinton Field Park">Clinton Field Park</MenuItem>
-                            {/* Get parks from API to display here */}
+                            {this.props.state.parksData.map( park => {
+                                return (
+                                    <MenuItem value={
+                                        this.capitalizeFirstLetter(park.properties.PARK_NAME1) + ' '
+                                        + this.capitalizeFirstLetter(park.properties.PARK_PARK3)
+                                        }>
+                                        {park.properties.PARK_NAME1} {park.properties.PARK_PARK3}
+                                    </MenuItem>
+                                );
+                            })}
                         </Select>
                     </Grid>
                 </Grid>
