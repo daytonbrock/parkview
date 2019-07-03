@@ -21,6 +21,7 @@ import NewReviewPage from '../NewReviewPage/NewReviewPage';
 import ReviewDetailsPage from '../ReviewDetailsPage/ReviewDetailsPage';
 
 import './App.css';
+import LoginPage from '../LoginPage/LoginPage';
 
 class App extends Component {
   componentDidMount () {
@@ -33,8 +34,10 @@ class App extends Component {
         <div>
           <Nav />
           <Switch>
+            {/* KEEP THIS */}
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
             <Redirect exact from="/" to="/home" />
+            {/* KEEP THIS, POPULATE IT WITH PARKVIEW ABOUT INFO */}
             {/* Visiting localhost:3000/about will show the about page.
             This is a route anyone can see, no login necessary */}
             <Route
@@ -42,6 +45,7 @@ class App extends Component {
               path="/about"
               component={AboutPage}
             />
+            {/* GENERAL INFO HERE ABOUT PROTECTED ROUTES */}
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/home will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the 'Login' or 'Register' page.
@@ -51,12 +55,7 @@ class App extends Component {
               path="/home"
               component={UserPage}
             /> */}
-            {/* The new "HomePage" that will display all the reviews from the database */}
-            <ProtectedRoute
-              exact
-              path="/home"
-              component={HomePage}
-            />
+            {/* PROBABLY WILL ULTIMATELY DELETE THIS, LEAVE FOR NOW */}
             {/* This works the same as the other protected route, except that if the user is logged in,
             they will see the info page instead. */}
             <ProtectedRoute
@@ -64,15 +63,30 @@ class App extends Component {
               path="/info"
               component={InfoPage}
             />
-            <ProtectedRoute
+            {/* The new "HomePage" that will display all the reviews from the database, avail to view w/o signing in */}
+            <Route
+              exact
+              path="/home"
+              component={HomePage}
+            />
+            {/* Users are allowed to leave anonymous reviews without signing for base mode */}
+            <Route
               exact
               path="/new-review"
               component={NewReviewPage}
             />
-            <ProtectedRoute
+            {/* Users will be allowed to click and view a reviews details without signing in */}
+            <Route
               exact
               path="/review-details/:id"
               component={ReviewDetailsPage}
+            />
+            {/* for base mode, this is admin login
+            TO DO: FIGURE OUT RE-ROUTING FOR THIS */}
+            <ProtectedRoute
+              exact
+              path="/home/verified"
+              component={HomePage}
             />
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />

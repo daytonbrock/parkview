@@ -35,7 +35,7 @@ class Nav extends Component {
     >
       <List>
         <ListItem>
-          <Link className="nav-link" to="/home">
+          <Link className="nav-link" to="/home/verified">
             {/* Show this link if they are logged in or not,
             but call this link 'Home' if they are logged in,
             and call this link 'Login / Register' if they are not */}

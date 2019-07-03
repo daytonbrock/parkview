@@ -31,8 +31,8 @@ class NewReviewPage extends Component {
 
     addReview = () => {
         if (this.state.park_name && this.state.body) {
-           this.props.dispatch({ type: 'POST_PARK_REVIEW', payload: this.state })
-        this.props.history.push('/review-details'); 
+            this.props.dispatch({ type: 'POST_PARK_REVIEW', payload: this.state })
+            this.props.history.push('/home'); 
         } else {
             alert('please select a park and leave text in your review before posting!')
         }

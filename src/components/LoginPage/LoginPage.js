@@ -91,6 +91,7 @@ class LoginPage extends Component {
 // if you wanted you could write this code like this:
 // const mapStateToProps = ({errors}) => ({ errors });
 const mapStateToProps = state => ({
+  user: state.user,
   errors: state.errors,
 });
 
