@@ -21,7 +21,6 @@ import NewReviewPage from '../NewReviewPage/NewReviewPage';
 import ReviewDetailsPage from '../ReviewDetailsPage/ReviewDetailsPage';
 
 import './App.css';
-import LoginPage from '../LoginPage/LoginPage';
 
 class App extends Component {
   componentDidMount () {
@@ -81,8 +80,7 @@ class App extends Component {
               path="/review-details/:id"
               component={ReviewDetailsPage}
             />
-            {/* for base mode, this is admin login
-            TO DO: FIGURE OUT RE-ROUTING FOR THIS */}
+            {/* for login / register page */}
             <ProtectedRoute
               exact
               path="/home/verified"

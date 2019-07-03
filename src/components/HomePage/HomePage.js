@@ -1,14 +1,12 @@
 // src/components/HomePage/HomePage.js
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import ReviewCard from '../ReviewCard/ReviewCard';
 
 // Material-UI components
 import Grid from '@material-ui/core/Grid';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
 
 class HomePage extends Component {
 
@@ -20,21 +18,12 @@ class HomePage extends Component {
         return (
             <div className="App">
                 <h3>Recent Reviews</h3>
-                <Grid container
-                    spacing={5}>
+                <Grid container spacing={5}>
                     {this.props.state.reviews.map( review => {
                         return (
-                            <Grid item xs={4}
-                                key={review.id}>
-                                <Card>
-                                    <CardContent>
-                                        <header>
-                                            <h4>{review.park_name}</h4>
-                                        </header>
-                                        <Typography noWrap>{review.body}</Typography>
-                                    </CardContent>
-                                </Card>
-                            </Grid>
+                            <ReviewCard key={review.id} 
+                                history={this.props.history}
+                                review={review}/>
                         );
                     })}
                 </Grid>
