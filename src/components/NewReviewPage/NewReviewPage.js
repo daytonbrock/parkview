@@ -22,6 +22,10 @@ class NewReviewPage extends Component {
         })
     }
 
+    componentDidMount() {
+        this.props.dispatch({ type: 'FETCH_PARKS_DATA' })
+    }
+
     render() {
         return (
             <div className="App">
@@ -65,6 +69,9 @@ class NewReviewPage extends Component {
                         </Button>
                     </Grid>
                 </Grid>
+                <pre>
+                    {JSON.stringify(this.props.state, null, 2)}
+                </pre>
             </div>
         );
     }
