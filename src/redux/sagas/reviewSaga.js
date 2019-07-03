@@ -18,9 +18,19 @@ function* fetchParkReviews() {
     }
 }
 
+function* fetchReviewDetails(action) {
+    try {
+        const response = yield axios.get(`/api/review/details/${action.payload}`);
+        yield put({ type: 'SET_REVIEW_DETAILS', payload: response.data[0] });
+    } catch (error) {
+        console.log('Error with retrieving review details:', error);
+    }
+}
+
 function* reviewSaga() {
     yield takeLatest('POST_PARK_REVIEW', postParkReviewToServer);
     yield takeLatest('FETCH_PARK_REVIEWS', fetchParkReviews);
+    yield takeLatest('FETCH_REVIEW_DETAILS', fetchReviewDetails);
 }
 
 export default reviewSaga;

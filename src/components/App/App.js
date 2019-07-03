@@ -71,7 +71,7 @@ class App extends Component {
             />
             <ProtectedRoute
               exact
-              path="/review-details"
+              path="/review-details/:id"
               component={ReviewDetailsPage}
             />
             {/* If none of the other routes matched, we will show a 404. */}

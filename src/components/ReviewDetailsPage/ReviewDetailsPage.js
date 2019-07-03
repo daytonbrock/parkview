@@ -7,6 +7,15 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 
 class ReviewDetailsPage extends Component {
+
+    componentDidMount() {
+        const reviewId = this.props.match.params.id;
+        this.props.dispatch({
+            type: 'FETCH_REVIEW_DETAILS',
+            payload: reviewId,
+        });
+    }
+
     render() {
         return (
             <div className="App">
@@ -30,9 +39,14 @@ class ReviewDetailsPage extends Component {
                         </Button>
                     </Grid>
                 </Grid>
+                <pre>
+                    {JSON.stringify(this.props.state.reviewDetails)}
+                </pre>
             </div>
         );
     }
 }
 
-export default connect()(ReviewDetailsPage);
+const mapStateToProps = (state) => ({state});
+
+export default connect(mapStateToProps)(ReviewDetailsPage);
