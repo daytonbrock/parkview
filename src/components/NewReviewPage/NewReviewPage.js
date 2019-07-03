@@ -24,6 +24,7 @@ class NewReviewPage extends Component {
         })
     }
 
+    // LOOK INTO FORMATTING PARK NAMES SO THEY ARE NOT ALL CAPS
     // capitalizeFirstLetter(string) {
     //     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
     // }
@@ -48,7 +49,6 @@ class NewReviewPage extends Component {
                     <h3>{this.state.park_name}</h3> :
                     <h3>Select a park to review</h3>
                 }
-                {/* Selected Park should append here */}
                 <Grid container>
                     <Grid item xs={6}>
                         <TextField placeholder="Search for a park..."/>
@@ -95,8 +95,6 @@ class NewReviewPage extends Component {
     }
 }
 
-// will need to retrieve parks from redux store
-// will need to communicate / make queries onChange of search bar
 const mapStateToProps = (state) => ({state});
 
 export default connect(mapStateToProps)(NewReviewPage);

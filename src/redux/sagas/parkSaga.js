@@ -14,7 +14,7 @@ function* fetchParksData() {
 
 function* postParkReviewToServer(action) {
     try {
-        yield axios.post('/api/parks', action.payload);
+        yield axios.post('/api/review', action.payload);
     } catch (error) {
         console.log('Error with posting park review:', error);
     }
