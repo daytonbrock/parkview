@@ -12,7 +12,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 class NewReviewPage extends Component {
 
     state = {
-        selectedPark: '',
+        park_name: '',
+        body: '', 
+        user_id: null, 
     }
 
     handleChangeFor = propertyName => event => {
@@ -22,8 +24,17 @@ class NewReviewPage extends Component {
         })
     }
 
-    capitalizeFirstLetter(string) {
-        return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+    // capitalizeFirstLetter(string) {
+    //     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+    // }
+
+    addReview = () => {
+        if (this.state.park_name && this.state.body) {
+           this.props.dispatch({ type: 'POST_PARK_REVIEW', payload: this.state })
+        this.props.history.push('/review-details'); 
+        } else {
+            alert('please select a park and leave text in your review before posting!')
+        }
     }
 
     componentDidMount() {
@@ -33,8 +44,8 @@ class NewReviewPage extends Component {
     render() {
         return (
             <div className="App">
-                { this.state.selectedPark ? 
-                    <h3>{this.state.selectedPark}</h3> :
+                { this.state.park_name ? 
+                    <h3>{this.state.park_name}</h3> :
                     <h3>Select a park to review</h3>
                 }
                 {/* Selected Park should append here */}
@@ -44,14 +55,13 @@ class NewReviewPage extends Component {
                         {/* Re-render select menu options based on search bar */}
                     </Grid>
                     <Grid item xs={6}>
-                        <Select value={this.state.selectedPark}
-                            onChange={this.handleChangeFor('selectedPark')}>
+                        <Select value={this.state.park_name}
+                            onChange={this.handleChangeFor('park_name')}>
                             {this.props.state.parksData.map( park => {
                                 return (
-                                    <MenuItem value={
-                                        this.capitalizeFirstLetter(park.properties.PARK_NAME1) + ' '
-                                        + this.capitalizeFirstLetter(park.properties.PARK_PARK3)
-                                        }>
+                                    <MenuItem key={park.properties.FID} value={
+                                        park.properties.PARK_NAME1 + ' ' + park.properties.PARK_PARK3
+                                    }>
                                         {park.properties.PARK_NAME1} {park.properties.PARK_PARK3}
                                     </MenuItem>
                                 );
@@ -62,7 +72,8 @@ class NewReviewPage extends Component {
                 <TextField id="outlined-full-width"
                     fullWidth margin="normal"
                     variant="outlined"
-                    multiline rowsMax="15"/>
+                    multiline rowsMax="15"
+                    onChange={this.handleChangeFor('body')}/>
                 {/* After base is met, there will be a upload file component here */}
                 <Grid container>
                     <Grid item xs={6}>
@@ -71,7 +82,7 @@ class NewReviewPage extends Component {
                         </Button>
                     </Grid>
                     <Grid item xs={6}>
-                        <Button onClick={() => this.props.history.push('/review-details')}>
+                        <Button onClick={this.addReview()}>
                             Add Review
                         </Button>
                     </Grid>
