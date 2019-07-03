@@ -19,12 +19,10 @@ class ReviewDetailsPage extends Component {
     render() {
         return (
             <div className="App">
-                {/* park here */}
-                <h3>Theodore Wirth Park</h3>
+                <h3>{this.props.state.reviewDetails.park_name}</h3>
                 <div>
                     <p>
-                        Theodore Wirth Park is the largest park managed by the Minneapolis Park and Recreation Board.The park land is shared by Minneapolis and the neighboring suburb of Golden Valley.The park includes two golf courses(an 18 - hole course and a 9 - hole par 3 course), Wirth Lake, Birch Pond, and other amenities.It forms a significant portion of the Grand Rounds Scenic Byway, linking the Chain of Lakes area with the Victory Memorial Parkway.
-                        {/* review text here */}
+                        {this.props.state.reviewDetails.body}
                     </p>
                 </div>
                 <Grid container>
@@ -39,9 +37,6 @@ class ReviewDetailsPage extends Component {
                         </Button>
                     </Grid>
                 </Grid>
-                <pre>
-                    {JSON.stringify(this.props.state.reviewDetails)}
-                </pre>
             </div>
         );
     }
