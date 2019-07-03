@@ -7,76 +7,36 @@ import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField'
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
 
 class HomePage extends Component {
+
+    componentDidMount() {
+        this.props.dispatch({ type: 'FETCH_PARK_REVIEWS' });
+    }
+
     render() {
         return (
             <div className="App">
                 <h3>Recent Reviews</h3>
                 <Grid container
                     spacing={5}>
-                    <Grid item xs={4}>
-                        <Card>
-                            <CardContent>
-                                <header>
-                                    <h4>Theodore Wirth Park</h4>
-                                </header>
-                                <p>snippet of review text...</p>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                    <Grid item xs={4}>
-                        <Card>
-                            <CardContent>
-                                <header>
-                                    <h4>Bryn Mawr Meadows</h4>
-                                </header>
-                                <p>snippet of review text...</p>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                    <Grid item xs={4}>
-                        <Card>
-                            <CardContent>
-                                <header>
-                                    <h4>Clinton Field Park</h4>
-                                </header>
-                                <p>snippet of review text...</p>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                    <Grid item xs={4}>
-                        <Card>
-                            <CardContent>
-                                <header>
-                                    <h4>Elliot Park</h4>
-                                </header>
-                                <p>snippet of review text...</p>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                    <Grid item xs={4}>
-                        <Card>
-                            <CardContent>
-                                <header>
-                                    <h4>Mueller Park</h4>
-                                </header>
-                                <p>snippet of review text...</p>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                    <Grid item xs={4}>
-                        <Card>
-                            <CardContent>
-                                <header>
-                                    <h4>Powderhorn Park</h4>
-                                </header>
-                                <p>snippet of review text...</p>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                    {/* map through actual reviews */}
+                    {this.props.state.reviews.map( review => {
+                        return (
+                            <Grid item xs={4}
+                                key={review.id}>
+                                <Card>
+                                    <CardContent>
+                                        <header>
+                                            <h4>{review.park_name}</h4>
+                                        </header>
+                                        <Typography noWrap>{review.body}</Typography>
+                                    </CardContent>
+                                </Card>
+                            </Grid>
+                        );
+                    })}
                 </Grid>
                 <br/>
                 <br/>
@@ -95,4 +55,6 @@ class HomePage extends Component {
     }
 }
 
-export default connect()(HomePage);
+const mapStateToProps = (state) => ({state});
+
+export default connect(mapStateToProps)(HomePage);
