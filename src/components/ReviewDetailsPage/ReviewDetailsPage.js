@@ -26,16 +26,31 @@ class ReviewDetailsPage extends Component {
                     </p>
                 </div>
                 <Grid container>
-                    <Grid item xs={6}>
-                        <Button onClick={() => this.props.history.push('/home')}>
-                            Edit
-                        </Button>
-                    </Grid>
-                    <Grid item xs={6}>
-                        <Button>
-                            Delete
-                        </Button>
-                    </Grid>
+                    { this.props.state.user.id === 1 ? 
+                        <>
+                            <Grid item xs={4}>
+                                <Button onClick={() => {this.props.history.push('/home')}}>
+                                    Back
+                                </Button>
+                            </Grid>
+                            <Grid item xs={4}>
+                                <Button>
+                                    Edit
+                                </Button>
+                            </Grid>
+                            <Grid item xs={4}>
+                                <Button>
+                                    Delete
+                                </Button>
+                            </Grid> 
+                        </>
+                        :
+                        <Grid item xs={12}>
+                            <Button onClick={() => {this.props.history.push('/home')}}>
+                                Back
+                            </Button>
+                        </Grid>
+                    }
                 </Grid>
             </div>
         );
