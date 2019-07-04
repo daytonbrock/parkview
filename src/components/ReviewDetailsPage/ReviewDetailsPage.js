@@ -5,9 +5,11 @@ import { connect } from 'react-redux';
 // Material-UI components
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 
 class ReviewDetailsPage extends Component {
 
+    // fetch review details based on url id on page load
     componentDidMount() {
         const reviewId = this.props.match.params.id;
         this.props.dispatch({
@@ -20,12 +22,18 @@ class ReviewDetailsPage extends Component {
         return (
             <div className="App">
                 <h3>{this.props.state.reviewDetails.park_name}</h3>
-                <div>
-                    <p>
-                        {this.props.state.reviewDetails.body}
-                    </p>
-                </div>
-                <Grid container>
+                <Grid className="review-content" container>
+                    <Grid item xs={12}>
+                        <Typography>
+                            {this.props.state.reviewDetails.body}
+                        </Typography>
+                    </Grid>
+                    {/* After base is met, there will be a component here to display review images.
+                    <Grid item xs={6}>
+                        <ReviewImages />
+                    </Grid> */}
+                </Grid>
+                <Grid className="page-nav" container>
                     { this.props.state.user.id === 1 ? 
                         <>
                             <Grid item xs={4}>
@@ -34,7 +42,7 @@ class ReviewDetailsPage extends Component {
                                 </Button>
                             </Grid>
                             <Grid item xs={4}>
-                                <Button>
+                                <Button onClick={() => {this.props.history.push(`/edit-review/${this.props.state.reviewDetails.id}`)}}>
                                     Edit
                                 </Button>
                             </Grid>
@@ -57,6 +65,7 @@ class ReviewDetailsPage extends Component {
     }
 }
 
+// needed to access review details from redux store
 const mapStateToProps = (state) => ({state});
 
 export default connect(mapStateToProps)(ReviewDetailsPage);
