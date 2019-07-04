@@ -9,8 +9,9 @@ import TextField from '@material-ui/core/TextField';
 
 class EditReviewPage extends Component {
 
-    // local state to hold updates while editting
+    // local state to hold updates while editing
     state = {
+        id: this.props.match.params.id,
         body: this.props.state.reviewDetails.body, 
     }
 
@@ -25,9 +26,9 @@ class EditReviewPage extends Component {
     // function that will check if the local state is truthy 
     // dispatch an action to update this review, passing along the local state as payload
     updateReview = () => {
-        if (this.props.state.body) {
-            this.props.dispatch({ type: 'UPDATE_REVIEW', payload: this.state })
-            this.props.history.push('/home'); 
+        if (this.state.body) {
+            this.props.dispatch({ type: 'UPDATE_REVIEW', payload: this.state });
+            this.props.history.push(`/review-details/${this.props.match.params.id}`); 
         } else {
             alert('what would you like to say? please leave a comment in the text field.');
         }
@@ -48,7 +49,7 @@ class EditReviewPage extends Component {
                 <h3>{this.props.state.reviewDetails.park_name}</h3>
                 <Grid className="review-content" container>
                     <Grid item xs={12}>
-                        <TextField value={this.state.body}
+                        <TextField defaultValue={this.state.body}
                             fullWidth margin="normal"
                             variant="outlined"
                             multiline rowsMax="15"

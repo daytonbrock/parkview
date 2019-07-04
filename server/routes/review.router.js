@@ -32,7 +32,7 @@ router.get('/', (req, res) => {
     }); // end pool query
 });
 
-// GET details for one review
+// GET route to retrieve details for one review
 router.get('/details/:id', (req, res) => {
     const queryText = 'SELECT * FROM "park_reviews" WHERE "id"=$1;';
     pool.query(queryText, [req.params.id])
@@ -44,5 +44,19 @@ router.get('/details/:id', (req, res) => {
             res.sendStatus(500);
         }); // end pool query
 }); 
+
+// PUT route to update review details
+// BASE MODE: only updates the body of the review
+// STRETCH: will also update review images
+router.put('/update/:id', (req, res) => {
+    const queryText = `UPDATE "park_reviews" SET "body"=$1 WHERE "id"=$2;`;
+    pool.query(queryText, [req.body.body, req.params.id])
+        .then(() => {
+            res.sendStatus(200);
+        }).catch(error => {
+            console.log('error with UPDATE on /api/movies/ route:', error);
+            res.sendStatus(500);
+        }); // end pool query
+}); // end put
 
 module.exports = router;

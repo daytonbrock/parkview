@@ -1,3 +1,4 @@
+// src/components/app/app.js
 import React, {Component} from 'react';
 import {
   HashRouter as Router,
@@ -5,24 +6,30 @@ import {
   Redirect,
   Switch,
 } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-import {connect} from 'react-redux';
-
+// Static header and footer
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
 
+// ProtectedRoute to filter users to log in page if the route is not public
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
+// Components
 import AboutPage from '../AboutPage/AboutPage';
-import UserPage from '../UserPage/UserPage';
-import InfoPage from '../InfoPage/InfoPage';
+// import UserPage from '../UserPage/UserPage'; --> will be used after base mode with introduction of user registration / profiles
+// import InfoPage from '../InfoPage/InfoPage'; --> not currently used, may need to be deleted
 import HomePage from '../HomePage/HomePage';
 import NewReviewPage from '../NewReviewPage/NewReviewPage';
 import ReviewDetailsPage from '../ReviewDetailsPage/ReviewDetailsPage';
+import EditReviewPage from '../EditReviewPage/EditReviewPage';
 
+// App styles
 import './App.css';
 
 class App extends Component {
+
+  // fetch user on page load
   componentDidMount () {
     this.props.dispatch({type: 'FETCH_USER'})
   }
@@ -33,18 +40,16 @@ class App extends Component {
         <div>
           <Nav />
           <Switch>
-            {/* KEEP THIS */}
-            {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
+            {/* Visiting '/' will redirect to '/home' */}
             <Redirect exact from="/" to="/home" />
-            {/* KEEP THIS, POPULATE IT WITH PARKVIEW ABOUT INFO */}
-            {/* Visiting localhost:3000/about will show the about page.
-            This is a route anyone can see, no login necessary */}
+            {/* BASE MODE: this will explain the app */}
+            {/* Visiting '/about' will show the public about page. */}
             <Route
               exact
               path="/about"
               component={AboutPage}
             />
-            {/* GENERAL INFO HERE ABOUT PROTECTED ROUTES */}
+            {/* AFTER BASE MODE: if user is logged in, this will show the user page. */}
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/home will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the 'Login' or 'Register' page.
@@ -54,21 +59,22 @@ class App extends Component {
               path="/home"
               component={UserPage}
             /> */}
-            {/* PROBABLY WILL ULTIMATELY DELETE THIS, LEAVE FOR NOW */}
+            {/* NOT USED, MAYBE DELETE */}
             {/* This works the same as the other protected route, except that if the user is logged in,
             they will see the info page instead. */}
-            <ProtectedRoute
+            {/* <ProtectedRoute
               exact
               path="/info"
               component={InfoPage}
-            />
-            {/* The new "HomePage" that will display all the reviews from the database, avail to view w/o signing in */}
+            /> */}
+            {/* BASE MODE: '/home' will show recent reviews */}
+            {/* Visiting '/home' will show the home page */}
             <Route
               exact
               path="/home"
               component={HomePage}
             />
-            {/* Users are allowed to leave anonymous reviews without signing for base mode */}
+            {/* BASE MODE: users are allowed to leave reviews without signing in */}
             <Route
               exact
               path="/new-review"
@@ -85,6 +91,11 @@ class App extends Component {
               exact
               path="/home/verified"
               component={HomePage}
+            />
+            <ProtectedRoute
+              exact
+              path="/edit-review/:id"
+              component={EditReviewPage}
             />
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
