@@ -4,7 +4,7 @@ import { put, takeLatest } from 'redux-saga/effects';
 
 // this will make an axios POST request to the server 
 // action.payload is a new review object
-function* postParkReviewToServer(action) {
+function* postParkReview(action) {
     try {
         yield axios.post('/api/review', action.payload);
     } catch (error) {
@@ -36,7 +36,7 @@ function* fetchReviewDetails(action) {
 
 // this will make a PUT request to the server to update the review details
 // action.payload is an object
-function* updateReviewDetails(action) {
+function* updateReview(action) {
     try {
         yield axios.put(`/api/review/update/${action.payload.id}`, action.payload);
     } catch (error) {
@@ -44,11 +44,23 @@ function* updateReviewDetails(action) {
     }
 }
 
+// this will make a DELETE request to the server to delete a review
+// action.payload is an object with the review id and user id
+function* deleteReview(action) {
+    try {
+        yield axios.delete(`api/review/delete`, action.payload);
+        yield put({ type: 'FETCH_PARK_REVIEWS' });
+    } catch (error) {
+        console.log('Error with deleting review:', error);
+    }
+}
+
 function* reviewSaga() {
-    yield takeLatest('POST_PARK_REVIEW', postParkReviewToServer);
+    yield takeLatest('POST_PARK_REVIEW', postParkReview);
     yield takeLatest('FETCH_PARK_REVIEWS', fetchParkReviews);
     yield takeLatest('FETCH_REVIEW_DETAILS', fetchReviewDetails);
-    yield takeLatest('UPDATE_REVIEW', updateReviewDetails);
+    yield takeLatest('UPDATE_REVIEW', updateReview);
+    yield takeLatest('DELETE_REVIEW', deleteReview);
 }
 
 export default reviewSaga;
