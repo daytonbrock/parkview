@@ -38,7 +38,7 @@ function* fetchReviewDetails(action) {
 // action.payload is an object
 function* updateReview(action) {
     try {
-        yield axios.put(`/api/review/update/${action.payload.id}`, action.payload);
+        yield axios.put(`/api/review/${action.payload.id}`, action.payload.body);
     } catch (error) {
         console.log('Error with updating review details:', error);
     }
@@ -48,7 +48,7 @@ function* updateReview(action) {
 // action.payload is an object with the review id and user id
 function* deleteReview(action) {
     try {
-        yield axios.delete(`api/review/delete`, action.payload);
+        yield axios.delete(`api/review/${action.payload}`);
         yield put({ type: 'FETCH_PARK_REVIEWS' });
     } catch (error) {
         console.log('Error with deleting review:', error);

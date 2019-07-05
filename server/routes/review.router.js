@@ -1,7 +1,7 @@
 const express = require('express');
 const pool = require('../modules/pool');
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 const router = express.Router();
-const axios = require('axios');
 
 // POST route to add a new park review
 router.post('/', (req, res) => {
@@ -48,15 +48,30 @@ router.get('/details/:id', (req, res) => {
 // PUT route to update review details
 // BASE MODE: only updates the body of the review
 // STRETCH: will also update review images
-router.put('/update/:id', (req, res) => {
+router.put('/:id', (req, res) => {
     const queryText = `UPDATE "park_reviews" SET "body"=$1 WHERE "id"=$2;`;
-    pool.query(queryText, [req.body.body, req.params.id])
+    pool.query(queryText, [req.body, req.params.id])
         .then(() => {
             res.sendStatus(200);
         }).catch(error => {
-            console.log('error with UPDATE on /api/movies/ route:', error);
+            console.log('error with UPDATE on /api/review/update route:', error);
             res.sendStatus(500);
         }); // end pool query
 }); // end put
+
+// DELETE route to delete a review
+// this will only delete if logged in user created the review OR if logged in user is an admin
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
+    console.log(req.user.id);
+    const queryText = `
+        DELETE FROM "park_reviews" WHERE "id"=$1 AND ("user_id"=$2 OR "clearance_level"<=$3);`
+    pool.query(queryText, [req.params.id, req.user.id, req.user.clearance_level])
+    .then(() => {
+        res.sendStatus(200);
+    }).catch(error => {
+        console.log('error with DELETE on /api/review/delete route:', error);
+        res.sendStatus(500);
+    }); // end pool query
+})
 
 module.exports = router;

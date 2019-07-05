@@ -1,7 +1,6 @@
 // src/components/ReviewDetailsPage/ReviewDetailsPage.js
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import Swal from 'sweetalert2';
 
 // Material-UI components
@@ -38,14 +37,10 @@ class ReviewDetailsPage extends Component {
     }
     
     // when called, will dispatch an action to delete review
-    // payload will pass review id as well as user id to verify user is authorized to delete this review
     willDelete = () => {
         this.props.dispatch({ 
             type: 'DELETE_REVIEW', 
-            payload: {
-                review_id: this.props.match.params.id,
-                user_id: this.props.state.user.id,
-            }
+            payload: this.props.match.params.id,
         });
         this.props.history.push('/home');
     }
