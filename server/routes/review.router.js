@@ -16,7 +16,7 @@ router.post('/', (req, res) => {
             console.log('error with POST requesting to add park review:', error);
             res.sendStatus(500);
         }); // end pool query
-});
+}); // end post
 
 // GET route to retrieve all reviews
 router.get('/', (req, res) => {
@@ -30,7 +30,7 @@ router.get('/', (req, res) => {
         console.log('error with GET request to retrieve all reviews:', error);
         res.sendStatus(500);
     }); // end pool query
-});
+}); // end get
 
 // GET route to retrieve details for one review
 router.get('/details/:id', (req, res) => {
@@ -43,7 +43,7 @@ router.get('/details/:id', (req, res) => {
             console.log('error with retrieving details for one review:', error);
             res.sendStatus(500);
         }); // end pool query
-}); 
+}); // end get
 
 // PUT route to update review details
 // BASE MODE: only updates the body of the review
@@ -62,7 +62,6 @@ router.put('/:id', (req, res) => {
 // DELETE route to delete a review
 // this will only delete if logged in user created the review OR if logged in user is an admin
 router.delete('/:id', rejectUnauthenticated, (req, res) => {
-    console.log(req.user.id);
     const queryText = `
         DELETE FROM "park_reviews" WHERE "id"=$1 AND ("user_id"=$2 OR "clearance_level"<=$3);`
     pool.query(queryText, [req.params.id, req.user.id, req.user.clearance_level])
@@ -72,6 +71,6 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
         console.log('error with DELETE on /api/review/delete route:', error);
         res.sendStatus(500);
     }); // end pool query
-})
+}); // end delete
 
 module.exports = router;
