@@ -46,11 +46,12 @@ router.get('/details/:id', (req, res) => {
 }); // end get
 
 // PUT route to update review details
+// this will only update if logged in user created the review OR if logged in user is an admin
 // BASE MODE: only updates the body of the review
 // STRETCH: will also update review images
-router.put('/:id', (req, res) => {
-    const queryText = `UPDATE "park_reviews" SET "body"=$1 WHERE "id"=$2;`;
-    pool.query(queryText, [req.body.body, req.params.id])
+router.put('/:id', rejectUnauthenticated, (req, res) => {
+    const queryText = `UPDATE "park_reviews" SET "body"=$1 WHERE "id"=$2 AND ("user_id"=$3 OR "clearance_level"<=$4);`;
+    pool.query(queryText, [req.body.body, req.params.id, req.user.id, req.user.clearance_level])
         .then(() => {
             res.sendStatus(200);
         }).catch(error => {
