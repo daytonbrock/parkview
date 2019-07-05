@@ -50,7 +50,7 @@ router.get('/details/:id', (req, res) => {
 // STRETCH: will also update review images
 router.put('/:id', (req, res) => {
     const queryText = `UPDATE "park_reviews" SET "body"=$1 WHERE "id"=$2;`;
-    pool.query(queryText, [req.body, req.params.id])
+    pool.query(queryText, [req.body.body, req.params.id])
         .then(() => {
             res.sendStatus(200);
         }).catch(error => {

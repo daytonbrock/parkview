@@ -7,6 +7,7 @@ import { put, takeLatest } from 'redux-saga/effects';
 function* postParkReview(action) {
     try {
         yield axios.post('/api/review', action.payload);
+        yield put({ type: 'FETCH_PARK_REVIEWS' });
     } catch (error) {
         console.log('Error with posting park review:', error);
     }
@@ -38,7 +39,8 @@ function* fetchReviewDetails(action) {
 // action.payload is an object
 function* updateReview(action) {
     try {
-        yield axios.put(`/api/review/${action.payload.id}`, action.payload.body);
+        yield axios.put(`/api/review/${action.payload.id}`, action.payload);
+        yield put({ type: 'FETCH_REVIEW_DETAILS', payload: action.payload.id });
     } catch (error) {
         console.log('Error with updating review details:', error);
     }
