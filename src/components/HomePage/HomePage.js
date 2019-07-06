@@ -16,18 +16,18 @@ class HomePage extends Component {
     }
 
     // handles change for search input, 
-    // loads search on event.target.value
-    handleChangeFor = propertyName => event => {
+    // dispatches search on event.target.value
+    handleSearch = event => {
         this.setState({
             ...this.state,
-            [propertyName]: event.target.value,
+            search: event.target.value,
         });
-        this.loadSearch(event);
+        this.dispatchSearch(event);
     }
 
     // when called will dispatch a search if search bar value is truthy
     // will fetch all if falsy
-    loadSearch = (event) => {
+    dispatchSearch = (event) => {
         if (event.target.value) {
             this.props.dispatch({ 
                 type: 'SEARCH_PARK_REVIEWS', 
@@ -69,7 +69,7 @@ class HomePage extends Component {
                     <Grid item xs={6}>
                         <TextField placeholder="Search by Park Name"
                             value={this.state.search}
-                            onChange={this.handleChangeFor('search')}/>
+                            onChange={this.handleSearch('search')}/>
                     </Grid>
                 </Grid>
             </div>

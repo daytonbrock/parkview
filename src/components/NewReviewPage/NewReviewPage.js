@@ -14,7 +14,8 @@ class NewReviewPage extends Component {
     state = {
         park_name: '',
         body: '', 
-        user_id: null, 
+        user_id: this.props.state.user.id || null, 
+        search: '',
     }
 
     handleChangeFor = propertyName => event => {
@@ -24,11 +25,37 @@ class NewReviewPage extends Component {
         })
     }
 
+    // handles change for search input, 
+    // dispatches search on event.target.value
+    handleSearch = event => {
+        this.setState({
+            ...this.state,
+            search: event.target.value,
+        });
+        this.dispatchSearch(event);
+    }
+
+    // when called will dispatch a search if search bar value is truthy
+    // will fetch all if falsy
+    dispatchSearch = (event) => {
+        if (event.target.value) {
+            this.props.dispatch({
+                type: 'SEARCH_PARKS',
+                payload: event.target.value,
+            });
+        } else {
+            this.props.dispatch({
+                type: 'FETCH_PARKS_DATA'
+            });
+        }
+    }
+
     // LOOK INTO FORMATTING PARK NAMES SO THEY ARE NOT ALL CAPS
     // capitalizeFirstLetter(string) {
     //     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
     // }
 
+    // 
     addReview = () => {
         if (this.state.park_name && this.state.body) {
             this.props.dispatch({ type: 'POST_PARK_REVIEW', payload: this.state })
@@ -38,6 +65,7 @@ class NewReviewPage extends Component {
         }
     }
 
+    // will retrieve all parks on page load
     componentDidMount() {
         this.props.dispatch({ type: 'FETCH_PARKS_DATA' })
     }
@@ -59,10 +87,10 @@ class NewReviewPage extends Component {
                             onChange={this.handleChangeFor('park_name')}>
                             {this.props.state.parksData.map( park => {
                                 return (
-                                    <MenuItem key={park.properties.FID} value={
-                                        park.properties.PARK_NAME1 + ' ' + park.properties.PARK_PARK3
+                                    <MenuItem key={park.attributes.FID} value={
+                                        park.attributes.PARK_NAME1 + ' ' + park.attributes.PARK_PARK3
                                     }>
-                                        {park.properties.PARK_NAME1} {park.properties.PARK_PARK3}
+                                        {park.attributes.PARK_NAME1} {park.attributes.PARK_PARK3}
                                     </MenuItem>
                                 );
                             })}
