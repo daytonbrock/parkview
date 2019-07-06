@@ -11,6 +11,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 class NewReviewPage extends Component {
 
+    // local state to hold review while editing and search input
     state = {
         park_name: '',
         body: '', 
@@ -18,6 +19,7 @@ class NewReviewPage extends Component {
         search: '',
     }
 
+    // handle input changes
     handleChangeFor = propertyName => event => {
         this.setState({
             ...this.state,
@@ -50,12 +52,7 @@ class NewReviewPage extends Component {
         }
     }
 
-    // LOOK INTO FORMATTING PARK NAMES SO THEY ARE NOT ALL CAPS
-    // capitalizeFirstLetter(string) {
-    //     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
-    // }
-
-    // 
+    // will check park name and body inputs and post a new review if truthy
     addReview = () => {
         if (this.state.park_name && this.state.body) {
             this.props.dispatch({ type: 'POST_PARK_REVIEW', payload: this.state })
@@ -79,8 +76,9 @@ class NewReviewPage extends Component {
                 }
                 <Grid container>
                     <Grid item xs={6}>
-                        <TextField placeholder="Search for a park..."/>
-                        {/* Re-render select menu options based on search bar */}
+                        <TextField placeholder="Search for a park..."
+                            value={this.state.search}
+                            onChange={this.handleSearch}/>
                     </Grid>
                     <Grid item xs={6}>
                         <Select value={this.state.park_name}
