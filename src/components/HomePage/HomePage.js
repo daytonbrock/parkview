@@ -16,16 +16,28 @@ class HomePage extends Component {
     }
 
     // handles change for search input, 
-    // sends state to search saga
+    // loads search on event.target.value
     handleChangeFor = propertyName => event => {
         this.setState({
             ...this.state,
             [propertyName]: event.target.value,
         });
-        this.props.dispatch({ 
-            type: 'SEARCH_PARK_REVIEWS', 
-            payload: this.state.search 
-        });
+        this.loadSearch(event);
+    }
+
+    // when called will dispatch a search if search bar value is truthy
+    // will fetch all if falsy
+    loadSearch = (event) => {
+        if (event.target.value) {
+            this.props.dispatch({ 
+                type: 'SEARCH_PARK_REVIEWS', 
+                payload: event.target.value,
+            });
+        } else {
+            this.props.dispatch({
+                type: 'FETCH_PARK_REVIEWS'
+            });
+        }
     }
 
     // will fetch park reviews on page load
