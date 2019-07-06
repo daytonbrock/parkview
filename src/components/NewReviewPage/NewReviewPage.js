@@ -113,9 +113,6 @@ class NewReviewPage extends Component {
                         </Button>
                     </Grid>
                 </Grid>
-                <pre>
-                    {JSON.stringify(this.props.state, null, 2)}
-                </pre>
             </div>
         );
     }

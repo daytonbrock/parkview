@@ -55,6 +55,9 @@ class ReviewDetailsPage extends Component {
     }
 
     render() {
+
+        const user = this.props.state.user.id;
+
         return (
             <div className="App">
                 <h3>{this.props.state.reviewDetails.park_name}</h3>
@@ -70,7 +73,9 @@ class ReviewDetailsPage extends Component {
                     </Grid> */}
                 </Grid>
                 <Grid className="page-nav" container>
-                    { this.props.state.user.id === 1 ? 
+                    {/* if user is the author of the review or is an admin, show edit and delete buttons */}
+                    { user === this.props.state.reviewDetails.user_id ||
+                        user === 1 ? 
                         <>
                             <Grid item xs={4}>
                                 <Button onClick={() => {this.props.history.push('/home')}}>

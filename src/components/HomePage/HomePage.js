@@ -69,7 +69,7 @@ class HomePage extends Component {
                     <Grid item xs={6}>
                         <TextField placeholder="Search by Park Name"
                             value={this.state.search}
-                            onChange={this.handleSearch('search')}/>
+                            onChange={this.handleSearch}/>
                     </Grid>
                 </Grid>
             </div>
