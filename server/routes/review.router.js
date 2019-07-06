@@ -45,6 +45,19 @@ router.get('/details/:id', (req, res) => {
         }); // end pool query
 }); // end get
 
+// GET route to search reviews
+router.get('/search', (req, res) => {
+    const queryText = `
+        SELECT * FROM "park_reviews" WHERE "park_name" ILIKE $1;`
+    pool.query(queryText, [req.query.park_name])
+        .then(response => {
+            res.send(response.rows);
+        }).catch(error => {
+            console.log('error with GET request to search reviews:', error);
+            res.sendStatus(500);
+        }); // end pool query
+}); // end get
+
 // PUT route to update review details
 // this will only update if logged in user created the review OR if logged in user is an admin
 // BASE MODE: only updates the body of the review

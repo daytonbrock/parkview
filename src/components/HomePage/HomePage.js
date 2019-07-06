@@ -10,6 +10,25 @@ import TextField from '@material-ui/core/TextField';
 
 class HomePage extends Component {
 
+    // local state to hold search input
+    state = {
+        search: '',
+    }
+
+    // handles change for search input, 
+    // sends state to search saga
+    handleChangeFor = propertyName => event => {
+        this.setState({
+            ...this.state,
+            [propertyName]: event.target.value,
+        });
+        this.props.dispatch({ 
+            type: 'SEARCH_PARK_REVIEWS', 
+            payload: this.state.search 
+        });
+    }
+
+    // will fetch park reviews on page load
     componentDidMount() {
         this.props.dispatch({ type: 'FETCH_PARK_REVIEWS' });
     }
@@ -36,7 +55,9 @@ class HomePage extends Component {
                         </Button>
                     </Grid>
                     <Grid item xs={6}>
-                        <TextField placeholder="Search by park name"/>
+                        <TextField placeholder="Search by Park Name"
+                            value={this.state.search}
+                            onChange={this.handleChangeFor('search')}/>
                     </Grid>
                 </Grid>
             </div>

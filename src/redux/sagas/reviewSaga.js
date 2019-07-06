@@ -24,6 +24,16 @@ function* fetchParkReviews() {
     }
 }
 
+function* searchParkReviews(action) {
+    try {
+        console.log(action.payload)
+        const searchResponse = yield axios.get('/api/review/search', action.payload);
+        yield put({ type: 'SET_PARK_REVIEWS', payload: searchResponse.data });
+    } catch (error) {
+        console.log('Error with retrieving search:', error);
+    }
+}
+
 // this will make a GET request to the server
 // then set the reviewDetailsReducer to the object that is response.data[0]
 function* fetchReviewDetails(action) {
@@ -63,6 +73,7 @@ function* reviewSaga() {
     yield takeLatest('FETCH_REVIEW_DETAILS', fetchReviewDetails);
     yield takeLatest('UPDATE_REVIEW', updateReview);
     yield takeLatest('DELETE_REVIEW', deleteReview);
+    yield takeLatest('SEARCH_PARK_REVIEWS', searchParkReviews);
 }
 
 export default reviewSaga;
