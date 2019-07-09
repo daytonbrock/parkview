@@ -1,6 +1,7 @@
 // src/components/NewReviewPage/NewReviewPage.js
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import ImageUpload from '../ImageUpload/ImageUpload';
 
 // Material-UI components
 import Grid from '@material-ui/core/Grid';
@@ -95,11 +96,18 @@ class NewReviewPage extends Component {
                         </Select>
                     </Grid>
                 </Grid>
-                <TextField id="outlined-full-width"
-                    fullWidth margin="normal"
-                    variant="outlined"
-                    multiline rowsMax="15"
-                    onChange={this.handleChangeFor('body')}/>
+                <br/>
+                <Grid container spacing={5}>
+                    <Grid item xs={6}>
+                       <TextField id="outlined-full-width"
+                        fullWidth margin="normal"
+                        variant="outlined"
+                        multiline rowsMax="15"
+                        onChange={this.handleChangeFor('body')}/> 
+                    </Grid>
+                    <ImageUpload/>
+                </Grid>
+                
                 {/* After base is met, there will be a upload file component here */}
                 <Grid container>
                     <Grid item xs={6}>
