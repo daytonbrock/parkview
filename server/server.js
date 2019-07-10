@@ -13,7 +13,9 @@ const passport = require('./strategies/user.strategy');
 const userRouter = require('./routes/user.router');
 const parksRouter = require('./routes/parks.router');
 const reviewRouter = require('./routes/review.router');
-const uploadRouter = require('./routes/upload.router');
+// const uploadRouter = require('./routes/upload.router');
+const UploaderS3Router = require('react-dropzone-s3-uploader/s3router');
+
 
 // Express File Upload
 app.use(fileUpload());
@@ -33,7 +35,13 @@ app.use(passport.session());
 app.use('/api/user', userRouter);
 app.use('/api/parks', parksRouter);
 app.use('/api/review', reviewRouter);
-app.use('/api/upload', uploadRouter);
+// app.use('/api/upload', uploadRouter);
+app.use('/s3', UploaderS3Router({
+    bucket: 'parkviewmplsbucket',
+    region: 'us-east-2',
+    headers: { 'Access-Control-Allow-Origin': '*' },
+    ACL: 'public-read',
+}));
 
 // Serve static files
 app.use(express.static('build'));

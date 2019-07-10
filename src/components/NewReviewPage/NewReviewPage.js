@@ -1,7 +1,7 @@
 // src/components/NewReviewPage/NewReviewPage.js
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import ImageUpload from '../ImageUpload/ImageUpload';
+import S3Uploader from '../DropzoneUploader/DropzoneUploader';
 
 // Material-UI components
 import Grid from '@material-ui/core/Grid';
@@ -105,7 +105,7 @@ class NewReviewPage extends Component {
                         multiline rowsMax="15"
                         onChange={this.handleChangeFor('body')}/> 
                     </Grid>
-                    <ImageUpload/>
+                    <S3Uploader/>
                 </Grid>
                 
                 {/* After base is met, there will be a upload file component here */}

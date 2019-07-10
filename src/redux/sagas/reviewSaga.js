@@ -29,7 +29,7 @@ function* fetchParkReviews() {
 // then set the reviewsReducer state to searchResponse.data
 function* searchParkReviews(action) {
     try {
-        console.log(action.payload)
+        console.log(action.payload);
         const searchResponse = yield axios.get(`/api/review/search?park_name=%${action.payload}%`);
         yield put({ type: 'SET_PARK_REVIEWS', payload: searchResponse.data });
     } catch (error) {
