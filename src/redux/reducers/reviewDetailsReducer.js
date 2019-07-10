@@ -1,5 +1,4 @@
-// // src/redux/reducers/reviewDetailsReducer.js
-
+// src/redux/reducers/reviewDetailsReducer.js
 const initialDetails = {
     "id": 0,
     "user_id": "",
