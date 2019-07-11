@@ -8,6 +8,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 
 class ReviewCard extends Component {
+
     render() {
         return (
             <Grid item xs={4}>

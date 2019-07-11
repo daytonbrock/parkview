@@ -43,6 +43,7 @@ class HomePage extends Component {
     // will fetch park reviews on page load
     componentDidMount() {
         this.props.dispatch({ type: 'FETCH_PARK_REVIEWS' });
+        this.props.dispatch({ type: 'FETCH_ALL_IMAGES' });
     }
 
     render() {
