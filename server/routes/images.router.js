@@ -32,6 +32,21 @@ router.get('/', (req, res) => {
     }); // end pool query
 }); // end get
 
+// GET route to retrieve review images from database
+router.get('/review/:id', (req, res) => {
+    const queryText = `
+        SELECT * FROM "images" 
+        WHERE "review_id" = $1 ORDER BY "id";`;
+    pool.query(queryText, [req.params.id])
+        .then(response => {
+            console.log(response);
+            res.send(response.rows);
+        }).catch(error => {
+            console.log('error with retrieving review images from database:', error);
+            res.sendStatus(500);
+        }); // end pool query
+}); // end get
+
 // DELETE route to delete review images from database
 router.delete('/:id', rejectUnauthenticated, (req, res) => {
     const queryText = `
