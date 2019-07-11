@@ -49,6 +49,9 @@ class HomePage extends Component {
     render() {
         return (
             <div className="App">
+                <pre>
+                    {JSON.stringify(this.props.state.reviewImages, null, 2)}
+                </pre>
                 <h3>Recent Reviews</h3>
                 <Grid container spacing={5}>
                     {this.props.state.reviews.map( review => {
