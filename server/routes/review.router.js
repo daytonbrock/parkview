@@ -7,11 +7,11 @@ const router = express.Router();
 router.post('/', (req, res) => {
     const queryText = `
         INSERT INTO "park_reviews" ("user_id", "body", "park_name")
-        VALUES($1, $2, $3);`
+        VALUES($1, $2, $3) RETURNING "id";`
     pool.query(queryText, [req.body.user_id, req.body.body, req.body.park_name])
         .then(response => {
             console.log(response);
-            res.sendStatus(201);
+            res.send(response.rows[0]);
         }).catch(error => {
             console.log('error with POST requesting to add park review:', error);
             res.sendStatus(500);
@@ -82,7 +82,7 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
     .then(() => {
         res.sendStatus(200);
     }).catch(error => {
-        console.log('error with DELETE on /api/review/delete route:', error);
+        console.log('error with DELETE on /api/review route:', error);
         res.sendStatus(500);
     }); // end pool query
 }); // end delete

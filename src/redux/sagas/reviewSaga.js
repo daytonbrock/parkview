@@ -1,12 +1,34 @@
 // src/redux/sagas/reviewSaga.js
 import axios from 'axios';
-import { put, takeLatest } from 'redux-saga/effects';
+import { all, put, takeLatest } from 'redux-saga/effects';
 
 // this will make an axios POST request to the server 
 // action.payload is a new review object
 function* postParkReview(action) {
     try {
         yield axios.post('/api/review', action.payload);
+        yield put({ type: 'FETCH_PARK_REVIEWS' });
+    } catch (error) {
+        console.log('Error with posting park review:', error);
+    }
+}
+
+// this will make an axios POST request to the server to:
+// post a review to "park_reviews" table and then
+// post each affiliated image to the "images" table
+// with the new review id
+// action.payload is an object with the review and images
+function* postReviewWithImages(action) {
+    try {
+        const reviewResponse = yield axios.post('/api/review', action.payload.review);
+        yield all( action.payload.images.map( image => {
+            axios.post('/api/images', {
+                name: image.name,
+                url: image.url,
+                review_id: reviewResponse.data.id,
+            });
+        }));
+        yield put({ type: 'CLEAR_IMAGES' });
         yield put({ type: 'FETCH_PARK_REVIEWS' });
     } catch (error) {
         console.log('Error with posting park review:', error);
@@ -29,7 +51,7 @@ function* fetchParkReviews() {
 // then set the reviewsReducer state to searchResponse.data
 function* searchParkReviews(action) {
     try {
-        console.log(action.payload)
+        console.log(action.payload);
         const searchResponse = yield axios.get(`/api/review/search?park_name=%${action.payload}%`);
         yield put({ type: 'SET_PARK_REVIEWS', payload: searchResponse.data });
     } catch (error) {
@@ -60,9 +82,10 @@ function* updateReview(action) {
 }
 
 // this will make a DELETE request to the server to delete a review
-// action.payload is an object with the review id and user id
+// action.payload is the review id
 function* deleteReview(action) {
     try {
+        yield axios.delete(`api/images/${action.payload}`);
         yield axios.delete(`api/review/${action.payload}`);
         yield put({ type: 'FETCH_PARK_REVIEWS' });
     } catch (error) {
@@ -72,6 +95,7 @@ function* deleteReview(action) {
 
 function* reviewSaga() {
     yield takeLatest('POST_PARK_REVIEW', postParkReview);
+    yield takeLatest('POST_REVIEW_WITH_IMAGES', postReviewWithImages);
     yield takeLatest('FETCH_PARK_REVIEWS', fetchParkReviews);
     yield takeLatest('FETCH_REVIEW_DETAILS', fetchReviewDetails);
     yield takeLatest('UPDATE_REVIEW', updateReview);

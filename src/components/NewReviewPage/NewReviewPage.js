@@ -1,6 +1,7 @@
 // src/components/NewReviewPage/NewReviewPage.js
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import S3Uploader from '../DropzoneUploader/DropzoneUploader';
 
 // Material-UI components
 import Grid from '@material-ui/core/Grid';
@@ -55,8 +56,19 @@ class NewReviewPage extends Component {
     // will check park name and body inputs and post a new review if truthy
     addReview = () => {
         if (this.state.park_name && this.state.body) {
-            this.props.dispatch({ type: 'POST_PARK_REVIEW', payload: this.state })
-            this.props.history.push('/home'); 
+            if (this.props.state.images[0]) {
+                this.props.dispatch({ 
+                    type: 'POST_REVIEW_WITH_IMAGES', 
+                    payload: {
+                        review: this.state,
+                        images: this.props.state.images,
+                    }
+                });
+                this.props.history.push('/home');
+            } else {
+                this.props.dispatch({ type: 'POST_PARK_REVIEW', payload: this.state });
+                this.props.history.push('/home'); 
+            }
         } else {
             alert('please select a park and leave text in your review before posting!')
         }
@@ -95,11 +107,18 @@ class NewReviewPage extends Component {
                         </Select>
                     </Grid>
                 </Grid>
-                <TextField id="outlined-full-width"
-                    fullWidth margin="normal"
-                    variant="outlined"
-                    multiline rowsMax="15"
-                    onChange={this.handleChangeFor('body')}/>
+                <br/>
+                <Grid container spacing={5}>
+                    <Grid item xs={6}>
+                       <TextField id="outlined-full-width"
+                        fullWidth margin="normal"
+                        variant="outlined"
+                        multiline rowsMax="15"
+                        onChange={this.handleChangeFor('body')}/> 
+                    </Grid>
+                    <S3Uploader/>
+                </Grid>
+                
                 {/* After base is met, there will be a upload file component here */}
                 <Grid container>
                     <Grid item xs={6}>
@@ -113,6 +132,9 @@ class NewReviewPage extends Component {
                         </Button>
                     </Grid>
                 </Grid>
+                <pre>
+                    {JSON.stringify(this.props.state.images, null, 2)}
+                </pre>
             </div>
         );
     }
