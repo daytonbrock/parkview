@@ -18,4 +18,19 @@ router.post('/', (req, res) => {
         }); // end pool query
 }); // end post
 
+// DELETE route to delete review images from database
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
+    const queryText = `
+        DELETE FROM "images" USING "park_reviews" AS "review"
+        WHERE "review_id" = $1 AND 
+            ("review"."user_id" = $2 OR "review"."clearance_level" <= $3);`;
+    pool.query(queryText, [req.params.id, req.user.id, req.user.clearance_level])
+        .then(() => {
+            res.sendStatus(200);
+        }).catch(error => {
+            console.log('error with DELETE on /api/images route:', error);
+            res.sendStatus(500);
+        }); // end pool query
+}); // end delete
+
 module.exports = router;

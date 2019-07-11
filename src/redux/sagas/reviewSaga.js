@@ -82,9 +82,10 @@ function* updateReview(action) {
 }
 
 // this will make a DELETE request to the server to delete a review
-// action.payload is an object with the review id and user id
+// action.payload is the review id
 function* deleteReview(action) {
     try {
+        yield axios.delete(`api/images/${action.payload}`);
         yield axios.delete(`api/review/${action.payload}`);
         yield put({ type: 'FETCH_PARK_REVIEWS' });
     } catch (error) {

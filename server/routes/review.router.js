@@ -82,7 +82,7 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
     .then(() => {
         res.sendStatus(200);
     }).catch(error => {
-        console.log('error with DELETE on /api/review/delete route:', error);
+        console.log('error with DELETE on /api/review route:', error);
         res.sendStatus(500);
     }); // end pool query
 }); // end delete
