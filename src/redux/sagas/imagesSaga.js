@@ -2,6 +2,8 @@
 import axios from 'axios';
 import { all, put, takeLatest } from 'redux-saga/effects';
 
+// this will make a GET request to retrieve all review images from the server
+// then set the reviewImagesReducer with imagesResponse
 function* fetchReviewImages() {
     try {
         const imagesResponse = yield axios.get('api/images');

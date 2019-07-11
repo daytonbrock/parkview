@@ -10,10 +10,14 @@ import Typography from '@material-ui/core/Typography';
 class ReviewCard extends Component {
 
     render() {
+
+        const foundImage = this.props.state.reviewImages.find(image => image.review_id === this.props.review.id);
+
         return (
             <Grid item xs={4}>
                 <Card onClick={() => this.props.history.push(`/review-details/${this.props.review.id}`)}>
                     <CardContent>
+                        { foundImage ? <img alt={foundImage.name} src={foundImage.url}/> : null }
                         <header>
                             <h4>{this.props.review.park_name}</h4>
                         </header>
@@ -25,4 +29,6 @@ class ReviewCard extends Component {
     }
 }
 
-export default connect()(ReviewCard);
+const mapStateToProps = state => ({state});
+
+export default connect(mapStateToProps)(ReviewCard);
