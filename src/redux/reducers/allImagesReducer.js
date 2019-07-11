@@ -1,4 +1,4 @@
-// src/redux/reducers/reviewImagesReducer.js
+// src/redux/reducers/allImagesReducer.js
 const initialState = {
     "id": 0,
     "name": "",
@@ -6,14 +6,14 @@ const initialState = {
     "review_id": ""
 }
 
-// stores review images
-const reviewImagesReducer = (state = [initialState], action) => {
+// stores all review images
+const allImagesReducer = (state = [initialState], action) => {
     switch (action.type) {
-        case 'SET_REVIEW_IMAGES':
+        case 'SET_ALL_IMAGES':
             return action.payload;
         default:
             return state;
     }
 }
 
-export default reviewImagesReducer;
+export default allImagesReducer;

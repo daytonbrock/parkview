@@ -1,6 +1,7 @@
 // src/components/ReviewDetailsPage/ReviewDetailsPage.js
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import ReviewImages from '../ReviewImages/ReviewImages';
 import Swal from 'sweetalert2';
 
 // Material-UI components
@@ -60,18 +61,6 @@ class ReviewDetailsPage extends Component {
 
         return (
             <div className="App">
-                <h3>{this.props.state.reviewDetails.park_name}</h3>
-                <Grid className="review-content" container>
-                    <Grid item xs={12}>
-                        <Typography>
-                            {this.props.state.reviewDetails.body}
-                        </Typography>
-                    </Grid>
-                    {/* After base is met, there will be a component here to display review images.
-                    <Grid item xs={6}>
-                        <ReviewImages />
-                    </Grid> */}
-                </Grid>
                 <Grid className="page-nav" container>
                     {/* if user is the author of the review or is an admin, show edit and delete buttons */}
                     { user === this.props.state.reviewDetails.user_id ||
@@ -101,6 +90,17 @@ class ReviewDetailsPage extends Component {
                         </Grid>
                     }
                 </Grid>
+                <h3>{this.props.state.reviewDetails.park_name}</h3>
+                <Grid className="review-content" container>
+                    <Grid item xs={12}>
+                        <Typography>
+                            {this.props.state.reviewDetails.body}
+                        </Typography>
+                    </Grid>
+                    {/* After base is met, there will be a component here to display review images. */}
+                    <ReviewImages review_id={this.props.state.reviewDetails.id}/>
+                </Grid>
+                
             </div>
         );
     }

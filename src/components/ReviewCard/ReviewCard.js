@@ -11,7 +11,7 @@ class ReviewCard extends Component {
 
     render() {
 
-        const foundImage = this.props.state.reviewImages.find(image => image.review_id === this.props.review.id);
+        const foundImage = this.props.state.allImages.find(image => image.review_id === this.props.review.id);
 
         return (
             <Grid item xs={4}>
