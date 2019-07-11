@@ -20,7 +20,14 @@ class ReviewImages extends Component {
         return (
             <div className="App">
                 <Grid container>
-                    {this.props.state.reviewImages}
+                    {this.props.state.reviewImages.map( image => {
+                        return (
+                            <Grid item xs={12}>
+                                <img alt={image.name} src={image.url}/>
+                            </Grid>
+                        );
+                    })}
+
                 </Grid>
             </div>
         );

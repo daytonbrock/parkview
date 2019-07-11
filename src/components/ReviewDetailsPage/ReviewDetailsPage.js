@@ -98,7 +98,7 @@ class ReviewDetailsPage extends Component {
                         </Typography>
                     </Grid>
                     {/* After base is met, there will be a component here to display review images. */}
-                    <ReviewImages review_id={this.props.state.reviewDetails.id}/>
+                    <ReviewImages review_id={this.props.match.params.id}/>
                 </Grid>
                 
             </div>

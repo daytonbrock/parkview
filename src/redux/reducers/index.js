@@ -7,6 +7,7 @@ import reviews from './reviewsReducer';
 import reviewDetails from './reviewDetailsReducer';
 import uploadedImages from './uploadedImageReducer';
 import allImages from './allImagesReducer';
+import reviewImages from './reviewImagesReducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -22,7 +23,8 @@ const rootReducer = combineReducers({
   reviews, // this will hold the park reviews
   reviewDetails, // this will hold one reviews' details
   uploadedImages, // this will hold images to be added to DB when a new review is posted
-  allImages, // this will hold review images
+  allImages, // this will hold all review images
+  reviewImages, // this will hold images for one review
 });
 
 export default rootReducer;
