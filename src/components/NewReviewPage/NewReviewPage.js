@@ -10,11 +10,13 @@ import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 
+import './NewReviewPage.css';
+
 class NewReviewPage extends Component {
 
     // local state to hold review while editing and search input
     state = {
-        park_name: '',
+        park_name: 'Select A Park',
         body: '', 
         user_id: this.props.state.user.id || null, 
         search: '',
@@ -55,7 +57,7 @@ class NewReviewPage extends Component {
 
     // will check park name and body inputs and post a new review if truthy
     addReview = () => {
-        if (this.state.park_name && this.state.body) {
+        if (this.state.park_name !== 'Select A Park' && this.state.body) {
             if (this.props.state.images[0]) {
                 this.props.dispatch({ 
                     type: 'POST_REVIEW_WITH_IMAGES', 
@@ -74,6 +76,11 @@ class NewReviewPage extends Component {
         }
     }
 
+    cancelReview = () => {
+        this.props.dispatch({ type: 'CLEAR_IMAGES' });
+        this.props.history.push('/home');
+    }
+
     // will retrieve all parks on page load
     componentDidMount() {
         this.props.dispatch({ type: 'FETCH_PARKS_DATA' })
@@ -82,10 +89,13 @@ class NewReviewPage extends Component {
     render() {
         return (
             <div className="App">
-                { this.state.park_name ? 
-                    <h3>{this.state.park_name}</h3> :
-                    <h3>Select a park to review</h3>
-                }
+                <div className="park_name">
+                    { this.state.park_name !== 'Select A Park' ? 
+                        <h3>{this.state.park_name}</h3> : null
+                    } 
+                </div>
+                
+                
                 <Grid container>
                     <Grid item xs={6}>
                         <TextField placeholder="Search for a park..."
@@ -95,6 +105,9 @@ class NewReviewPage extends Component {
                     <Grid item xs={6}>
                         <Select value={this.state.park_name}
                             onChange={this.handleChangeFor('park_name')}>
+                            <MenuItem key="default"
+                                value="Select A Park"
+                                disabled>Select A Park</MenuItem>
                             {this.props.state.parksData.map( park => {
                                 return (
                                     <MenuItem key={park.attributes.FID} value={
@@ -109,7 +122,7 @@ class NewReviewPage extends Component {
                 </Grid>
                 <br/>
                 <Grid container spacing={5}>
-                    <Grid item xs={6}>
+                    <Grid item xs={9}>
                        <TextField id="outlined-full-width"
                         fullWidth margin="normal"
                         variant="outlined"
@@ -118,11 +131,9 @@ class NewReviewPage extends Component {
                     </Grid>
                     <S3Uploader/>
                 </Grid>
-                
-                {/* After base is met, there will be a upload file component here */}
                 <Grid container>
                     <Grid item xs={6}>
-                        <Button onClick={() => this.props.history.push('/home')}>
+                        <Button onClick={this.cancelReview}>
                             Cancel
                         </Button>
                     </Grid>
@@ -132,9 +143,6 @@ class NewReviewPage extends Component {
                         </Button>
                     </Grid>
                 </Grid>
-                <pre>
-                    {JSON.stringify(this.props.state.images, null, 2)}
-                </pre>
             </div>
         );
     }

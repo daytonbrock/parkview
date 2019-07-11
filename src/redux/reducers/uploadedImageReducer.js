@@ -1,6 +1,6 @@
-// src/redux/reducers/imageReducer.js
+// src/redux/reducers/uploadedImageReducer.js
 // this will hold images to be added to DB with post of a new review
-const imageReducer = (state = [], action) => {
+const uploadedImageReducer = (state = [], action) => {
     switch (action.type) {
         case 'CAPTURE_IMAGE':
             return [...state, action.payload];
@@ -12,4 +12,4 @@ const imageReducer = (state = [], action) => {
 }
 
 // array of objects: images will be on redux store
-export default imageReducer;
+export default uploadedImageReducer;
