@@ -56,8 +56,19 @@ class NewReviewPage extends Component {
     // will check park name and body inputs and post a new review if truthy
     addReview = () => {
         if (this.state.park_name && this.state.body) {
-            this.props.dispatch({ type: 'POST_PARK_REVIEW', payload: this.state })
-            this.props.history.push('/home'); 
+            if (this.props.state.images[0]) {
+                this.props.dispatch({ 
+                    type: 'POST_REVIEW_WITH_IMAGES', 
+                    payload: {
+                        review: this.state,
+                        images: this.props.state.images,
+                    }
+                });
+                this.props.history.push('/home');
+            } else {
+                this.props.dispatch({ type: 'POST_PARK_REVIEW', payload: this.state });
+                this.props.history.push('/home'); 
+            }
         } else {
             alert('please select a park and leave text in your review before posting!')
         }
