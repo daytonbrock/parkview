@@ -16,12 +16,25 @@ body {
 }
 
 form {
-    background-color: #dbd5d5;
     width: 30%;
-    height: 250px;
+    height: 300px;
     margin: 20px auto;
     padding: 25px;
     border-radius: 2px;
+    background-color: #f8ffd7;
+    display: inline-grid;
+    justify-content: center;
+    align-items: center;
+}
+
+.log-in-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+form > div {
+    margin: 5px;
 }
 
 input {

@@ -8,14 +8,14 @@
   font-size: 24px;
   font-weight: 700;
   display: inline-block;
-  color: #73ac73;
+  color: #7da453;
 }
 
 .menu-button {
   display: flex;
   align-items: center;
   padding: auto;
-  color: #73ac73;
+  color: #7da453;
   box-shadow: 15px black;
 }
 
@@ -41,5 +41,5 @@
 
 .nav-link:hover {
   color: #f2f2f2;
-  background-color: #73ac73;
+  background-color: #7da453;
 }

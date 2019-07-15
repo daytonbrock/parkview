@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+// Material-UI components
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+
 class LoginPage extends Component {
   state = {
     username: '',
@@ -31,7 +35,7 @@ class LoginPage extends Component {
 
   render() {
     return (
-      <div>
+      <div className="App">
         {this.props.errors.loginMessage && (
           <h2
             className="alert"
@@ -40,39 +44,44 @@ class LoginPage extends Component {
             {this.props.errors.loginMessage}
           </h2>
         )}
-        <form onSubmit={this.login}>
-          <h1>Login</h1>
-          <div>
-            <label htmlFor="username">
-              Username:
-              <input
-                type="text"
-                name="username"
-                value={this.state.username}
-                onChange={this.handleInputChangeFor('username')}
-              />
-            </label>
-          </div>
-          <div>
-            <label htmlFor="password">
-              Password:
-              <input
-                type="password"
-                name="password"
-                value={this.state.password}
-                onChange={this.handleInputChangeFor('password')}
-              />
-            </label>
-          </div>
-          <div>
-            <input
-              className="log-in"
-              type="submit"
-              name="submit"
-              value="Log In"
-            />
-          </div>
-        </form>
+        <div className="log-in-form">
+          <form onSubmit={this.login}>
+            <h1>Login</h1>
+            <div>
+              <label htmlFor="username">
+                <TextField
+                  variant="outlined"
+                  label="username"
+                  type="text"
+                  name="username"
+                  value={this.state.username}
+                  onChange={this.handleInputChangeFor('username')}
+                />
+              </label>
+            </div>
+            <div>
+              <label htmlFor="password">
+                <TextField
+                  variant="outlined"
+                  label="password"
+                  type="password"
+                  name="password"
+                  value={this.state.password}
+                  onChange={this.handleInputChangeFor('password')}
+                />
+              </label>
+            </div>
+            <div>
+              <Button
+                variant="outlined"
+                className="log-in"
+                type="submit"
+                name="submit"
+                value="Log In"
+              >Login</Button>
+            </div>
+          </form>
+        </div>
         <center>
           <button
             type="button"

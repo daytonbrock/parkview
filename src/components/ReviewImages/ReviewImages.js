@@ -22,12 +22,13 @@ class ReviewImages extends Component {
         return (
             <div className="App">
                 <Grid container spacing={5}>
-                    {this.props.state.reviewImages.map( image => {
+                    {this.props.state.reviewImages.map( (image, i) => {
                         return (
                             <Grid item xs={12}>
                                 {/* <img className="review-image" alt={image.name} src={image.url}/> */}
                                 <Card>
                                     <CardMedia component="img"
+                                        key={i}
                                         alt={image.name} 
                                         src={image.url}/>
                                 </Card>
