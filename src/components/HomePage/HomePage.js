@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ReviewCard from '../ReviewCard/ReviewCard';
+import WelcomePage from '../WelcomePage/WelcomePage';
 
 // Material-UI components
 import Grid from '@material-ui/core/Grid';
@@ -48,32 +49,35 @@ class HomePage extends Component {
 
     render() {
         return (
-            <div className="App">
-                <h3>Recent Reviews</h3>
-                <Grid container spacing={5}>
-                    {this.props.state.reviews.map( review => {
-                        return (
-                            <ReviewCard key={review.id} 
-                                history={this.props.history}
-                                review={review}/>
-                        );
-                    })}
-                </Grid>
-                <br/>
-                <br/>
-                <Grid container>
-                    <Grid item xs={6}>
-                        <Button onClick={() => this.props.history.push('/new-review')}>
-                            Add A New Review
-                        </Button>
+            <>
+                <WelcomePage />
+                <div className="App">
+                    <Grid container>
+                        <Grid item xs={6}>
+                            <Button onClick={() => this.props.history.push('/new-review')}>
+                                Add A New Review
+                            </Button>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <TextField placeholder="Search by Park Name"
+                                value={this.state.search}
+                                onChange={this.handleSearch}/>
+                        </Grid>
+                    </Grid> 
+                    <br/>
+                    <br/>
+                    <h3>Recent Reviews</h3>
+                    <Grid container spacing={5}>
+                        {this.props.state.reviews.map( review => {
+                            return (
+                                <ReviewCard key={review.id} 
+                                    history={this.props.history}
+                                    review={review}/>
+                            );
+                        })}
                     </Grid>
-                    <Grid item xs={6}>
-                        <TextField placeholder="Search by Park Name"
-                            value={this.state.search}
-                            onChange={this.handleSearch}/>
-                    </Grid>
-                </Grid>
-            </div>
+                </div>
+            </>
         );
     }
 }

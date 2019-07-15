@@ -36,6 +36,8 @@ app.use('/api/user', userRouter);
 app.use('/api/parks', parksRouter);
 app.use('/api/review', reviewRouter);
 app.use('/api/images', imagesRouter);
+
+// route to upload an image to AWS bucket
 app.use('/s3', UploaderS3Router({
     bucket: 'parkviewmplsbucket',
     region: 'us-east-2',

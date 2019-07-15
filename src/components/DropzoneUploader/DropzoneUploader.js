@@ -42,4 +42,4 @@ class DropzoneUploader extends Component {
     }
 }
 
-export default connect ()(DropzoneUploader);
+export default connect()(DropzoneUploader);

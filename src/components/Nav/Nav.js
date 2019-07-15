@@ -52,11 +52,6 @@ class Nav extends Component {
           {this.props.user.id && (
             <List>
               <ListItem>
-                <Link className="nav-link" to="/info">
-                  Info Page
-                </Link>
-              </ListItem>
-              <ListItem>
                 <LogOutButton className="nav-link"/>
               </ListItem>
             </List>
@@ -75,15 +70,15 @@ class Nav extends Component {
               </SvgIcon>
             </IconButton>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={4} className="title-block">
             <Link to="/home">
               <h2 className="nav-title">ParkView</h2>
             </Link>
           </Grid>
           <Grid item xs={4}>
+            
           </Grid>
         </Grid>
-        
         <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
           {this.sideList('left')}
         </Drawer>
