@@ -109,13 +109,13 @@ class NewReviewPage extends Component {
                                 value="Select A Park"
                                 disabled>Select A Park</MenuItem>
                             {this.props.state.parksData.map( park => {
-                                return (
+                                if ( park.attributes.PARK_NAME1 !== ' ' && park.attributes.PARK_PARK3 !== ' ') {
+                                   return (
                                     <MenuItem key={park.attributes.FID} value={
-                                        park.attributes.PARK_NAME1 + ' ' + park.attributes.PARK_PARK3
-                                    }>
+                                        park.attributes.PARK_NAME1 + ' ' + park.attributes.PARK_PARK3}>
                                         {park.attributes.PARK_NAME1} {park.attributes.PARK_PARK3}
                                     </MenuItem>
-                                );
+                                )};
                             })}
                         </Select>
                     </Grid>

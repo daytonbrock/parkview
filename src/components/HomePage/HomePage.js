@@ -45,6 +45,7 @@ class HomePage extends Component {
     componentDidMount() {
         this.props.dispatch({ type: 'FETCH_PARK_REVIEWS' });
         this.props.dispatch({ type: 'FETCH_ALL_IMAGES' });
+        this.props.dispatch({ type: 'FETCH_PARKS_DATA' });
     }
 
     render() {
