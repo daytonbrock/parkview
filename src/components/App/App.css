@@ -10,6 +10,12 @@ body {
     text-align: center;
 }
 
+.about-page {
+    line-height: 2em;
+    margin-left: 200px;
+    margin-right: 200px;
+}
+
 .alert {
     background-color: #ff4545;
     margin: 50px;
@@ -21,7 +27,7 @@ form {
     margin: 20px auto;
     padding: 25px;
     border-radius: 2px;
-    background-color: #f8ffd7;
+    /* background-color: #f8ffd7; */
     display: inline-grid;
     justify-content: center;
     align-items: center;

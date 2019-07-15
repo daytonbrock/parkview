@@ -1,4 +1,5 @@
 import React from 'react';
+import WelcomePage from '../WelcomePage/WelcomePage';
 
 // This is one of our simplest components
 // It doesn't have local state, so it can be a function component.
@@ -7,13 +8,13 @@ import React from 'react';
 
 const AboutPage = () => (
   <div>
-    <div className="App">
+    <WelcomePage />
+    <div className="App about-page">
       <h3>Overview</h3>
       <p>
         ParkView aims to provide community members with a platform to communicate
         for themselves their values and priorities
-        for the parks in their neighborhoods that extends beyond community engagement practices common today. At its core, ParkView is a park review application– allowing users to search
-        for a park and leave a review, as well as read other community members reviews.
+        for the parks in their neighborhoods that extends beyond community engagement practices common today.
       </p>
       <h3>Background</h3>
       <p>
