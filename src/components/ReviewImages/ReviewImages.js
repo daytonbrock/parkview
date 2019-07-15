@@ -35,7 +35,6 @@ class ReviewImages extends Component {
                             </Grid>
                         );
                     })}
-
                 </Grid>
             </div>
         );

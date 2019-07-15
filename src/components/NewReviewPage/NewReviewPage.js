@@ -7,8 +7,12 @@ import S3Uploader from '../DropzoneUploader/DropzoneUploader';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
 
 import './NewReviewPage.css';
 
@@ -69,6 +73,7 @@ class NewReviewPage extends Component {
                 this.props.history.push('/home');
             } else {
                 this.props.dispatch({ type: 'POST_PARK_REVIEW', payload: this.state });
+                this.props.dispatch({ type: 'FETCH_ALL_IMAGES' });
                 this.props.history.push('/home'); 
             }
         } else {
@@ -88,21 +93,33 @@ class NewReviewPage extends Component {
 
     render() {
         return (
-            <div className="App">
+            <div className="new-review">
+                <Grid container>
+                    <Grid item xs={6}>
+                        <Button onClick={this.cancelReview}>
+                            Cancel
+                        </Button>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Button onClick={this.addReview}>
+                            Add Review
+                        </Button>
+                    </Grid>
+                </Grid>
                 <div className="park_name">
                     { this.state.park_name !== 'Select A Park' ? 
                         <h3>{this.state.park_name}</h3> : null
                     } 
                 </div>
-                
-                
+                {/* REQUIRED PORTION */}
                 <Grid container>
+                    {/* PARK SELECT */}
                     <Grid item xs={6}>
                         <TextField placeholder="Search for a park..."
                             value={this.state.search}
                             onChange={this.handleSearch}/>
-                    </Grid>
-                    <Grid item xs={6}>
+                    </Grid>    
+                    <Grid item xs={6}>    
                         <Select value={this.state.park_name}
                             onChange={this.handleChangeFor('park_name')}>
                             <MenuItem key="default"
@@ -119,28 +136,42 @@ class NewReviewPage extends Component {
                             })}
                         </Select>
                     </Grid>
+                    {/* BODY OF REVIEW */}
+                    <Grid item xs={12}>
+                        <Typography>
+                            How was your experience?
+                        </Typography>
+                       <TextField id="outlined-full-width"
+                            fullWidth margin="normal"
+                            variant="outlined"
+                            multiline rowsMax="15"
+                            onChange={this.handleChangeFor('body')}/> 
+                    </Grid>
                 </Grid>
                 <br/>
+                {/* IMAGES */}
                 <Grid container spacing={5}>
-                    <Grid item xs={9}>
-                       <TextField id="outlined-full-width"
-                        fullWidth margin="normal"
-                        variant="outlined"
-                        multiline rowsMax="15"
-                        onChange={this.handleChangeFor('body')}/> 
-                    </Grid>
-                    <S3Uploader/>
-                </Grid>
-                <Grid container>
-                    <Grid item xs={6}>
-                        <Button onClick={this.cancelReview}>
-                            Cancel
-                        </Button>
+                    <Grid item xs={12} className="uploader">
+                        <Typography>
+                            Upload Images
+                        </Typography>
+                        <S3Uploader/>
                     </Grid>
                     <Grid item xs={6}>
-                        <Button onClick={this.addReview}>
-                            Add Review
-                        </Button>
+                        <Grid container spacing={3}>
+                            {this.props.state.uploadedImages.map( (image, i) => {
+                                return (
+                                    <Grid item xs={12}>
+                                        <Card>
+                                            <CardMedia component="img"
+                                                key={i}
+                                                alt={image.name} 
+                                                src={image.url}/>
+                                        </Card>
+                                    </Grid>
+                                );
+                            })}
+                        </Grid>
                     </Grid>
                 </Grid>
             </div>

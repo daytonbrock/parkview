@@ -10,6 +10,13 @@ body {
     text-align: center;
 }
 
+.new-review {
+    margin-top: 50px;
+    margin-left: 200px;
+    margin-right: 200px;
+    text-align: center;
+}
+
 .about-page {
     line-height: 2em;
     margin-left: 200px;
