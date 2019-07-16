@@ -55,7 +55,7 @@ class HomePage extends Component {
                 <div className="App">
                     <Grid container>
                         <Grid item xs={6}>
-                            <Button onClick={() => this.props.history.push('/new-review')}>
+                            <Button variant="outlined" onClick={() => this.props.history.push('/new-review')}>
                                 Add A New Review
                             </Button>
                         </Grid>

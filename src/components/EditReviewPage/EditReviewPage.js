@@ -63,12 +63,12 @@ class EditReviewPage extends Component {
                 </Grid>
                 <Grid className="page-nav" container>
                     <Grid item xs={6}>
-                        <Button onClick={() => this.props.history.push('/home')}>
+                        <Button variant="outlined" onClick={() => this.props.history.push('/home')}>
                             Cancel
                         </Button>
                     </Grid>
                     <Grid item xs={6}>
-                        <Button onClick={this.updateReview}>
+                        <Button variant="outlined" onClick={this.updateReview}>
                             Save
                         </Button>
                     </Grid>

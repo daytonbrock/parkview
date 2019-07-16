@@ -67,24 +67,24 @@ class ReviewDetailsPage extends Component {
                         user === 1 ? 
                         <>
                             <Grid item xs={4}>
-                                <Button onClick={() => {this.props.history.push('/home')}}>
+                                <Button variant="outlined" onClick={() => {this.props.history.push('/home')}}>
                                     Back
                                 </Button>
                             </Grid>
                             <Grid item xs={4}>
-                                <Button onClick={() => {this.props.history.push(`/edit-review/${this.props.state.reviewDetails.id}`)}}>
+                                <Button variant="outlined" onClick={() => {this.props.history.push(`/edit-review/${this.props.state.reviewDetails.id}`)}}>
                                     Edit
                                 </Button>
                             </Grid>
                             <Grid item xs={4}>
-                                <Button onClick={this.deleteReview}>
+                                <Button variant="outlined" onClick={this.deleteReview}>
                                     Delete
                                 </Button>
                             </Grid> 
                         </>
                         :
                         <Grid item xs={12}>
-                            <Button onClick={() => {this.props.history.push('/home')}}>
+                            <Button variant="outlined" onClick={() => {this.props.history.push('/home')}}>
                                 Back
                             </Button>
                         </Grid>

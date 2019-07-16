@@ -96,12 +96,12 @@ class NewReviewPage extends Component {
             <div className="new-review">
                 <Grid container>
                     <Grid item xs={6}>
-                        <Button onClick={this.cancelReview}>
+                        <Button variant="outlined" onClick={this.cancelReview}>
                             Cancel
                         </Button>
                     </Grid>
                     <Grid item xs={6}>
-                        <Button onClick={this.addReview}>
+                        <Button variant="outlined" onClick={this.addReview}>
                             Add Review
                         </Button>
                     </Grid>
