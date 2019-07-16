@@ -3,6 +3,7 @@ const pool = require('../modules/pool');
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 const router = express.Router();
 
+
 // POST route to post review images to database
 router.post('/', (req, res) => {
     const queryText = `

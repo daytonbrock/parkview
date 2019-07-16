@@ -22,12 +22,14 @@ function* postReviewWithImages(action) {
     try {
         const reviewResponse = yield axios.post('/api/review', action.payload.review);
         yield all( action.payload.images.map( image => {
-            axios.post('/api/images', {
-                name: image.name,
-                url: image.url,
-                review_id: reviewResponse.data.id,
-            });
-        }));
+            return (    
+                axios.post('/api/images', {
+                    name: image.name,
+                    url: image.url,
+                    review_id: reviewResponse.data.id
+                })
+            ); // end axios post for one image
+        })); // end yield all
         yield put({ type: 'CLEAR_IMAGES' });
         yield put({ type: 'FETCH_PARK_REVIEWS' });
     } catch (error) {

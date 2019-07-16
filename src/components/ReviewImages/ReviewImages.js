@@ -1,7 +1,6 @@
 // src/components/ReviewDetailsPage/ReviewDetailsPage.js
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import ExifOrientationImg from 'react-exif-orientation-img';
 
 // Material-UI components
 import Grid from '@material-ui/core/Grid';
@@ -25,7 +24,6 @@ class ReviewImages extends Component {
                     {this.props.state.reviewImages.map( (image, i) => {
                         return (
                             <Grid item xs={12}>
-                                {/* <img className="review-image" alt={image.name} src={image.url}/> */}
                                 <Card>
                                     <CardMedia component="img"
                                         key={i}
